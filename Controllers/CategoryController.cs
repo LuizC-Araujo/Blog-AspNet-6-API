@@ -34,7 +34,7 @@ public class CategoryController : ControllerBase
         {
             var category = await context
                 .Categories
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
                 return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
@@ -105,7 +105,7 @@ public class CategoryController : ControllerBase
         {
             return StatusCode(500, new ResultViewModel<Category>("CATX05 - Não foi possível atualizar a categoria"));
         }
-        catch (Exception e)
+        catch
         {
             return StatusCode(500, new ResultViewModel<Category>("CATX06 - Falha interna no servidor"));
         }
@@ -134,7 +134,7 @@ public class CategoryController : ControllerBase
         {
             return StatusCode(500, new ResultViewModel<Category>("CATX07 - Não foi possível deletar a categoria"));
         }
-        catch (Exception e)
+        catch
         {
             return StatusCode(500, new ResultViewModel<Category>("CATX08 - Falha interna no servidor"));
         }
