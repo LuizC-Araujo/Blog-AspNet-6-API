@@ -21,11 +21,11 @@ public class UserController : ControllerBase
         }
         catch
         {
-            return StatusCode(500, new ResultViewModel<User>("USRX01 - Falaha interna no servidor"));
+            return StatusCode(500, new ResultViewModel<User>("USRX11 - Falha interna no servidor"));
         }
     }
 
-    [HttpGet("{id:int")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> GetByIdAsync(
         [FromRoute] int id,
         [FromServices] BlogDataContext context)
@@ -37,7 +37,7 @@ public class UserController : ControllerBase
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
-                return NotFound(new ResultViewModel<User>("Conteúdo não encontrado"));
+                return NotFound(new ResultViewModel<User>("USRX01 - Usuário não encontrado"));
 
             return Ok(new ResultViewModel<User>(user));
         }
@@ -89,12 +89,15 @@ public class UserController : ControllerBase
         [FromBody] EditorUserViewModel model,
         [FromServices] BlogDataContext context)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(new ResultViewModel<User>(ModelState.GetErrors()));
+        
         try
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
-                return NotFound(new ResultViewModel<User>("USRX05 - Conteúdo não encontrado"));
+                return NotFound(new ResultViewModel<User>("USRX05 - Usuário não encontrado"));
 
             user.Name = model.Name;
             user.Email = model.Email;
@@ -111,7 +114,7 @@ public class UserController : ControllerBase
         }
         catch (DbUpdateException)
         {
-            return StatusCode(500, new ResultViewModel<User>("USRX06 - Não foi possível atualizsar o usuário"));
+            return StatusCode(500, new ResultViewModel<User>("USRX06 - Não foi possível atualizar o usuário"));
         }
         catch
         {
@@ -129,7 +132,7 @@ public class UserController : ControllerBase
             var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
-                return NotFound(new ResultViewModel<User>("USRX08 - Conteúdo não encontrado"));
+                return NotFound(new ResultViewModel<User>("USRX08 - Usuário não encontrado"));
 
             context.Users.Remove(user);
             await context.SaveChangesAsync();
