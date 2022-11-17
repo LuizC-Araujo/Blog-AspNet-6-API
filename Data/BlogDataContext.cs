@@ -1,6 +1,5 @@
-﻿using System;
-using Blog.Mappings;
-using Blog.Models;
+﻿using Blog.Models;
+using Blog.Data.Mappings;
 
 using Microsoft.EntityFrameworkCore;
 
