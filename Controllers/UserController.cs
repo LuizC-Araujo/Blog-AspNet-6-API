@@ -146,7 +146,7 @@ public class UserController : ControllerBase
             context.Users.Remove(user);
             await context.SaveChangesAsync();
 
-            return Ok(new ResultViewModel<User>(user));
+            return Ok(new ResultViewModel<string>("Usuário deletado com sucesso", null));
         }
         catch (DbUpdateException)
         {
