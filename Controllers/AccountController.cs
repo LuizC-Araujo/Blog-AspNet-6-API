@@ -1,8 +1,8 @@
 ﻿using Blog.Data;
 using Blog.Extensions;
 using Blog.Services;
-using Blog.ViewModel;
-using Microsoft.AspNetCore.Authorization;
+using Blog.ViewModel.Accounts;
+using Blog.ViewModel.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;

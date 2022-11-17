@@ -21,4 +21,8 @@
     <Compile Remove="ViewModel\EditCategoryViewModel.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images" />
+  </ItemGroup>
+
 </Project>

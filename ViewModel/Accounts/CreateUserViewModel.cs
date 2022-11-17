@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Blog.Models;
 
-namespace Blog.ViewModel;
+namespace Blog.ViewModel.Accounts;
 
 public class CreateUserViewModel : EditUserViewModel
 {
