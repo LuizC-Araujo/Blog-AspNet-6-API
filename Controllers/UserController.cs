@@ -4,6 +4,7 @@ using Blog.Models;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SecureIdentity.Password;
 
 namespace Blog.Controllers;
 
@@ -49,25 +50,29 @@ public class UserController : ControllerBase
 
     [HttpPost("")]
     public async Task<IActionResult> PostAsync(
-        [FromBody] EditorUserViewModel model,
+        [FromBody] CreateUserViewModel model,
         [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
             return BadRequest(new ResultViewModel<User>(ModelState.GetErrors()));
 
+        var user = new User
+        {
+            Id = 0,
+            Name = model.Name,
+            Email = model.Email.ToLower(),
+            Bio = model.Bio,
+            Image = model.Image,
+            Slug = model.Slug.ToLower(),
+            GitHub = model.GitHub
+        };
+
+        var password = model.PasswordHash;
+        user.PasswordHash = PasswordHasher.Hash(password);
+        //var password = PasswordGenerator.Generate(25, true, false);
+        
         try
         {
-            var user = new User
-            {
-                Id = 0,
-                Name = model.Name,
-                Email = model.Email.ToLower(),
-                PasswordHash = model.PasswordHash,
-                Bio = model.Bio,
-                Image = model.Image,
-                Slug = model.Slug.ToLower(),
-                GitHub = model.GitHub
-            };
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
@@ -75,7 +80,7 @@ public class UserController : ControllerBase
         }
         catch (DbUpdateException)
         {
-            return StatusCode(500, new ResultViewModel<User>("USRX03 - Não foi possível incluir o usuário"));
+            return StatusCode(400, new ResultViewModel<User>("USRX03 - Não foi possível incluir o usuário"));
         }
         catch (Exception e)
         {
@@ -86,7 +91,7 @@ public class UserController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> PutAsync(
         [FromRoute] int id,
-        [FromBody] EditorUserViewModel model,
+        [FromBody] EditUserViewModel model,
         [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
@@ -101,7 +106,6 @@ public class UserController : ControllerBase
 
             user.Name = model.Name;
             user.Email = model.Email;
-            user.PasswordHash = model.PasswordHash;
             user.Bio = model.Bio;
             user.Image = model.Image;
             user.Slug = model.Slug;
