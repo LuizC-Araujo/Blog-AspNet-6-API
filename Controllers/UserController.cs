@@ -1,6 +1,7 @@
 ﻿using Blog.Data;
 using Blog.Extensions;
 using Blog.Models;
+using Blog.Services;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,7 @@ public class UserController : ControllerBase
     [HttpPost("")]
     public async Task<IActionResult> PostAsync(
         [FromBody] CreateUserViewModel model,
+        [FromServices] EmailService emailService,
         [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
@@ -76,6 +78,8 @@ public class UserController : ControllerBase
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
+            emailService.Send(user.Name, user.Email, "Bem vindo ao blog!", $"Sua senha é <strong>{password}</strong>");
+            
             return Created($"v1/users/{user.Id}", new ResultViewModel<User>(user));
         }
         catch (DbUpdateException)

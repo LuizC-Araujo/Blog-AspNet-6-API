@@ -8,7 +8,7 @@ namespace Blog.Controllers;
 public class HomeController : ControllerBase
 {
     [HttpGet("")]
-    [ApiKey]
+    //[ApiKey]
     public IActionResult Get()
     {
         return Ok();

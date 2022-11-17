@@ -62,6 +62,7 @@ void ConfigureMvc(WebApplicationBuilder builder)
 void ConfigureServices(WebApplicationBuilder builder)
 {
     builder.Services.AddDbContext<BlogDataContext>();
+    builder.Services.AddTransient<EmailService>();
     builder.Services.AddTransient<TokenService>(); // sempre cria ym novo
     // builder.Services.AddScoped(); // transação - reaproveita
     // builder.Services.AddSingleton(); // 1 por app
