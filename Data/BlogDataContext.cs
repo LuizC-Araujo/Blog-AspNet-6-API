@@ -16,7 +16,7 @@ namespace Blog.Data
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=BlogDotNet6-2;User ID=sa;Password=1q2w3e4r@#$;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=blogbacpac;User ID=sa;Password=1q2w3e4r@#$;TrustServerCertificate=True");
             //optionsBuilder.LogTo(Console.WriteLine);
         }
 
