@@ -17,11 +17,17 @@ ConfigureServices(builder);
 var app = builder.Build();
 LoadConfiguration(app);
 
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseResponseCompression();
 app.UseStaticFiles();
 app.MapControllers();
+
+if (app.Environment.IsDevelopment())
+{
+    Console.WriteLine(("Estou no ambiente de desenvolvimento!"));
+}
 app.Run();
 
 void LoadConfiguration(WebApplication app)
