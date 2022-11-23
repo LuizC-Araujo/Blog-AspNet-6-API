@@ -6,6 +6,7 @@ using Blog.Data;
 using Blog.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -28,6 +29,7 @@ if (app.Environment.IsDevelopment())
 {
     Console.WriteLine(("Estou no ambiente de desenvolvimento!"));
 }
+
 app.Run();
 
 void LoadConfiguration(WebApplication app)
@@ -76,10 +78,7 @@ void ConfigureMvc(WebApplicationBuilder builder)
     builder
         .Services
         .AddControllers()
-        .ConfigureApiBehaviorOptions(options =>
-        {
-            options.SuppressModelStateInvalidFilter = true;
-        })
+        .ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; })
         .AddJsonOptions(x =>
         {
             x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -89,7 +88,9 @@ void ConfigureMvc(WebApplicationBuilder builder)
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddDbContext<BlogDataContext>();
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<BlogDataContext>(options =>
+        options.UseSqlServer(connectionString));
     builder.Services.AddTransient<EmailService>();
     builder.Services.AddTransient<TokenService>(); // sempre cria ym novo
     // builder.Services.AddScoped(); // transação - reaproveita
