@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "YOMeQUA11r5wZDw1Wlz304jaKEVnKj2/tVPsFmpi+BI=",
+  "Source": "Blog",
+  "BasePath": "_content/Blog",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Blog\\wwwroot",
+      "Source": "Blog",
+      "ContentRoot": "F:\\ASP.NET6\\Blog-AspNet-6-API\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

@@ -78,3 +78,8 @@ F:\ASP.NET6\Blog-AspNet-6-API\obj\Debug\net6.0\refint\Blog.dll
 F:\ASP.NET6\Blog-AspNet-6-API\obj\Debug\net6.0\Blog.pdb
 F:\ASP.NET6\Blog-AspNet-6-API\obj\Debug\net6.0\Blog.genruntimeconfig.cache
 F:\ASP.NET6\Blog-AspNet-6-API\obj\Debug\net6.0\ref\Blog.dll
+F:\ASP.NET6\Blog-AspNet-6-API\bin\Debug\net6.0\Microsoft.OpenApi.dll
+F:\ASP.NET6\Blog-AspNet-6-API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+F:\ASP.NET6\Blog-AspNet-6-API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\ASP.NET6\Blog-AspNet-6-API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\ASP.NET6\Blog-AspNet-6-API\obj\Debug\net6.0\Blog.MvcApplicationPartsAssemblyInfo.cs
