@@ -7,13 +7,15 @@ using Blog.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureAuthentication(builder);
 ConfigureMvc(builder);
 ConfigureServices(builder);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 LoadConfiguration(app);
@@ -25,9 +27,11 @@ app.UseResponseCompression();
 app.UseStaticFiles();
 app.MapControllers();
 
+
 if (app.Environment.IsDevelopment())
 {
-    Console.WriteLine(("Estou no ambiente de desenvolvimento!"));
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.Run();
